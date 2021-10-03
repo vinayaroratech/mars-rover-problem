@@ -5,14 +5,23 @@ namespace MarsRoverProblem
 {
     public class Position : IPosition
     {
-        public int X { get; set; }
-        public int Y { get; set; }
+        public int X { get; private set; }
+        public int Y { get; private set; }
         public DirectionsType Direction { get; set; }
+
+        private IDictionary<string, string> _history = new Dictionary<string, string>();
 
         public Position()
         {
             X = Y = 0;
             Direction = DirectionsType.N;
+        }
+
+        public void SetPosition(int x, int y, DirectionsType direction)
+        {
+            X = x;
+            Y = y;
+            Direction = direction;
         }
 
         private void Rotate90Left()
@@ -81,10 +90,26 @@ namespace MarsRoverProblem
                 }
 
                 if (X < 0 || X > maxPoints[0] || Y < 0 || Y > maxPoints[1])
-                {
                     throw new MarsRoverException($"Oops! Position can not be beyond bounderies (0 , 0) and ({maxPoints[0]} , {maxPoints[1]})");
-                }
             }
+
+            if (!_history.ContainsKey(moves))
+                _history.Add(moves, ToString());
+        }
+
+        public override string ToString() => $"{X} {Y} {Direction}";
+
+        public IDictionary<string, string> GetHistory()
+        {
+            return _history;
+        }
+
+        public string GetHistoryByMoves(string moves)
+        {
+            if (_history.ContainsKey(moves))
+                return _history[moves];
+            else
+                return string.Empty;
         }
     }
 }

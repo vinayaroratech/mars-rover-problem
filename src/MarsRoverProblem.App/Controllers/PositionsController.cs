@@ -1,4 +1,5 @@
 ﻿using MarsRoverProblem.Api.Models;
+using MarsRoverProblem.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
@@ -21,24 +22,24 @@ namespace MarsRoverProblem.Api.Controllers
         }
 
         [HttpGet("{moves}")]
-        public string GetPosition(string moves)
+        public ActionResult<string> GetPosition(string moves)
         {
-            return _inMemoryPositionStore.GetHistoryByMoves(moves);
+            return Ok(_inMemoryPositionStore.GetHistoryByMoves(moves));
         }
 
         [HttpGet]
-        public IDictionary<string, string> GetHistory()
+        public IActionResult GetHistory()
         {
-            return _inMemoryPositionStore.GetHistory();
+            return Ok(_inMemoryPositionStore.GetHistory());
         }
 
         [HttpPost]
-        public string Post([FromBody] MovingRequestModel movingRequest)
+        public ActionResult<string> Post([FromBody] MovingRequestModel movingRequest)
         {
             _position.SetPosition(movingRequest.X, movingRequest.Y, movingRequest.Direction);
             _position.StartMoving(movingRequest.MaxPoints, movingRequest.Moves);
             _inMemoryPositionStore.Add(movingRequest.X, movingRequest.Y, movingRequest.Direction, movingRequest.Moves, _position.ToString());
-            return _position.ToString();
+            return Ok(_position.ToString());
         }
     }
 }

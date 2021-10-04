@@ -33,7 +33,6 @@ namespace MarsRoverProblem.Tests
             position.StartMoving(maxPoints, moves);
 
             var expectedOutput = "2 3 S";
-            var expectedHistory = 1;
             Assert.Equal(expectedOutput, position.ToString());
         }
 
@@ -49,7 +48,6 @@ namespace MarsRoverProblem.Tests
             position.StartMoving(maxPoints, moves);
 
             var expectedOutput = "2 3 S";
-            var expectedHistory = 1;
             Assert.Equal(expectedOutput, position.ToString());
 
             position.SetPosition(x: 1, y: 2, DirectionsType.N);
@@ -59,8 +57,6 @@ namespace MarsRoverProblem.Tests
             position.StartMoving(maxPoints, moves);
 
             expectedOutput = "1 3 N";
-
-            expectedHistory = 2;
             Assert.Equal(expectedOutput, position.ToString());
         }
 

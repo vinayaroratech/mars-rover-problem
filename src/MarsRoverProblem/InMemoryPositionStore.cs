@@ -21,7 +21,7 @@ namespace MarsRoverProblem
 
         public void Add(int x, int y, DirectionsType directionsType, string moves, string position)
         {
-            var key = $"{x}_{y}_{directionsType}_{moves }";
+            var key = $"{x}_{y}_{directionsType}_{moves}";
             if (!_history.ContainsKey(key))
                 _history.Add(key, position);
         }

@@ -13,14 +13,4 @@ namespace MarsRoverProblem
         [Description("West")]
         W = 4
     }
-
-    public enum MovesType
-    {
-        [Description("Move")]
-        M = 1,
-        [Description("Left")]
-        L = 2,
-        [Description("Right")]
-        R = 3,
-    }
 }

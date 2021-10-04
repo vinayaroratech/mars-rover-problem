@@ -1,0 +1,43 @@
+﻿<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+
+<table border="0" cellpadding="0" cellspacing="0" id="tblMoves">
+    <thead>
+        <tr>
+            <th>
+                Moves
+            </th>
+            <th>
+                Position
+            </th>
+        </tr>
+    </thead>
+    @{
+        var result = (Dictionary<string, string>)ViewData["Result"];
+        foreach (var item in result)
+        {
+            <tr>
+                <td>
+                    @item.Key
+                </td>
+                <td>
+                    @item.Value
+                </td>
+            </tr>
+        }
+    }
+</table>
+
+<style>
+    #tblMoves td {
+        padding: 5px;
+    }
+
+    #tblMoves th {
+        background: #aea;
+    }
+</style>

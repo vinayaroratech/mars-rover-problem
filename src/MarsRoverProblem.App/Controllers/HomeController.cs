@@ -33,6 +33,11 @@ namespace MarsRoverProblem.Api.Controllers
             return View();
         }
 
+        public ActionResult Create()
+        {
+            return View();
+        }
+
         // POST: HomeController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

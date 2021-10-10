@@ -35,3 +35,11 @@ OUTPUT: The output for each rover should be its final co-ordinates and heading.
 Expected Output:
 
 1 3 N 5 1 E
+
+
+### Vinay Arora
+
+- Blogs at [vinayaroratech.com](https://www.vinayaroratech.com)
+- Facebook - [Vinay Arora](https://www.facebook.com/vinayaroratech/)
+- Twitter - [Vinay Arora](https://twitter.com/vinaroar)
+- Linkedin - [Vinay Arora](https://www.linkedin.com/in/vinuarora/)

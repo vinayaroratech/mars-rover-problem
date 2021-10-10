@@ -1,8 +1,8 @@
-﻿using MarsRoverProblem.Api.Models;
-using MarsRoverProblem.App.Models;
+﻿using MarsRoverProblem.App.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
+using System;
+using System.Linq;
 
 namespace MarsRoverProblem.Api.Controllers
 {
@@ -22,24 +22,39 @@ namespace MarsRoverProblem.Api.Controllers
         }
 
         [HttpGet("{moves}")]
-        public ActionResult<string> GetPosition(string moves)
+        public IActionResult GetPosition(string moves)
         {
-            return Ok(_inMemoryPositionStore.GetHistoryByMoves(moves));
+            return Ok(new
+            {
+                value = _inMemoryPositionStore.GetHistoryByMoves(moves)
+            });
         }
 
         [HttpGet]
         public IActionResult GetHistory()
         {
-            return Ok(_inMemoryPositionStore.GetHistory());
+            return Ok(_inMemoryPositionStore.GetHistory()
+                .Select(s => new
+                {
+                    s.Key,
+                    s.Value
+                }));
         }
 
         [HttpPost]
-        public ActionResult<string> Post([FromBody] MovingRequestModel movingRequest)
+        public IActionResult Post([FromBody] MovingRequestModel movingRequest)
         {
-            _position.SetPosition(movingRequest.X, movingRequest.Y, movingRequest.Direction);
-            _position.StartMoving(movingRequest.MaxPoints, movingRequest.Moves);
-            _inMemoryPositionStore.Add(movingRequest.X, movingRequest.Y, movingRequest.Direction, movingRequest.Moves, _position.ToString());
-            return Ok(_position.ToString());
+            try
+            {
+                _position.SetPosition(movingRequest.X, movingRequest.Y, movingRequest.Direction);
+                _position.StartMoving(movingRequest.MaxPoints, movingRequest.Moves);
+                _inMemoryPositionStore.Add(movingRequest.X, movingRequest.Y, movingRequest.Direction, movingRequest.Moves, _position.ToString());
+                return Ok(new { value = _position.ToString() });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

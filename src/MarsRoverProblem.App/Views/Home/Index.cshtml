@@ -1,43 +1,65 @@
-﻿<h2>Index</h2>
+﻿<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<script src="~/js/moves.js"></script>
+<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-
-
-<table border="0" cellpadding="0" cellspacing="0" id="tblMoves">
-    <thead>
-        <tr>
-            <th>
-                Moves
-            </th>
-            <th>
-                Position
-            </th>
-        </tr>
-    </thead>
-    @{
-        var result = (Dictionary<string, string>)ViewData["Result"];
-        foreach (var item in result)
-        {
+<div class="container">
+    <h2>Moves History</h2>
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="clearTextBox();">New Move</button><br /><br />
+    <table class="table table-bordered table-hover">
+        <thead>
             <tr>
-                <td>
-                    @item.Key
-                </td>
-                <td>
-                    @item.Value
-                </td>
+                <th>Moves</th>
+                <th>Position</th>
             </tr>
-        }
-    }
-</table>
+        </thead>
+        <tbody class="tbody">
+        </tbody>
+    </table>
+</div>
 
-<style>
-    #tblMoves td {
-        padding: 5px;
-    }
-
-    #tblMoves th {
-        background: #aea;
-    }
-</style>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">New Move</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="MaxX">Max X:</label>
+                        <input type="text" class="form-control" id="MaxX" placeholder="MaxX" />
+                    </div>
+                    <div class="form-group">
+                        <label for="MaxY">Max Y:</label>
+                        <input type="text" class="form-control" id="MaxY" placeholder="MaxY" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Moves">Moves: </label>
+                        <input type="text" class="form-control" id="Moves" placeholder="Moves" />
+                    </div>
+                    <div class="form-group">
+                        <label for="X">X: </label>
+                        <input type="text" class="form-control" id="X" placeholder="X" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Y">Y: </label>
+                        <input type="text" class="form-control" id="Y" placeholder="Y" />
+                    </div>
+                    <div class="form-group">
+                        <label for="Direction">Direction: </label>
+                        <input type="text" class="form-control" id="Direction" placeholder="Direction" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();">Add</button>
+                <button type="button" class="btn btn-default" id="btnClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
